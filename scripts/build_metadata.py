@@ -51,6 +51,7 @@ def windows_version_text(version: ReleaseVersion | None) -> str:
     fields = {
         "CompanyName": AUTHOR,
         "Author": AUTHOR,
+        "LegalCopyright": "M. Pospíšil",
         "FileDescription": DESCRIPTION,
         "ProductName": PRODUCT_NAME,
         "OriginalFilename": "ProvozniDenik.exe",

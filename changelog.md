@@ -43,6 +43,8 @@ vývoje v této konverzaci; datum změny se může lišit od data Git commitu.
 
 ### Build a metadata
 
+- Do Windows EXE přidána položka „Autorská práva“ (`LegalCopyright`)
+  s hodnotou „M. Pospíšil“; ověřena v testu Windows version resource.
 - Doplněna metadata Windows EXE: autor a společnost **Miroslav Pospíšil**,
   popis souboru **provozní deník serverovny** a textová verze z Git tagu.
 - Doplněno generování metadat sestavení: datum a čas v UTC, celý Git commit,

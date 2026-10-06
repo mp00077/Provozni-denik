@@ -70,6 +70,7 @@ class MetadataTests(unittest.TestCase):
             fields = {item.name: item.val for item in info.kids[0].kids[0].kids}
             self.assertEqual(fields["CompanyName"], "Miroslav Pospíšil")
             self.assertEqual(fields["Author"], "Miroslav Pospíšil")
+            self.assertEqual(fields["LegalCopyright"], "M. Pospíšil")
             self.assertEqual(fields["FileDescription"], "provozní deník serverovny")
             self.assertEqual(fields["FileVersion"], "v2.4.6")
             self.assertTrue(info.toRaw())

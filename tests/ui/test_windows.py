@@ -20,6 +20,8 @@ from provozni_denik.ui.dialogs.access_dialog import AccessDialog
 from provozni_denik.ui.dialogs.history_dialog import HistoryDialog
 from provozni_denik.ui.dialogs.settings_dialog import SettingsDialog
 from provozni_denik.ui.dialogs.about_dialog import AboutDialog
+from provozni_denik.application import ApplicationSession
+from provozni_denik.ui.windows.startup_window import StartupWindow
 
 
 class Identity:
@@ -33,6 +35,41 @@ class WindowTests(unittest.TestCase):
         cls.app = QApplication.instance() or QApplication([])
         from provozni_denik.ui.theme import apply_theme
         apply_theme(cls.app)
+
+    def test_startup_window_and_staged_initialization(self):
+        splash = StartupWindow()
+        splash.show()
+        self.app.processEvents()
+        self.assertTrue(splash.isVisible())
+        with tempfile.TemporaryDirectory() as directory:
+            session = ApplicationSession(Config(Path(directory)))
+            steps = session.initialize()
+            self.assertIsNone(session.connection)
+            splash.set_status(next(steps))
+            self.assertIsNone(session.connection)
+            splash.set_status(next(steps))
+            self.assertIsNotNone(session.connection)
+            self.assertIsNone(session.window)
+            splash.set_status(next(steps))
+            with self.assertRaises(StopIteration):
+                next(steps)
+            self.assertIsNotNone(session.window)
+            self.assertFalse(session.window.isVisible())
+            session.window.show()
+            splash.finish()
+            self.assertFalse(splash.isVisible())
+            session.window.close()
+            session.close()
+            self.assertIsNone(session.connection)
+
+    def test_failed_startup_closes_database_connection(self):
+        with tempfile.TemporaryDirectory() as directory:
+            session = ApplicationSession(Config(Path(directory)))
+            with patch("provozni_denik.ui.windows.main_window.MainWindow", side_effect=RuntimeError("init failed")):
+                with self.assertRaisesRegex(RuntimeError, "init failed"):
+                    list(session.initialize())
+            self.assertIsNone(session.connection)
+            self.assertIsNone(session.window)
 
     def test_forms_save_filter_and_show_history(self):
         with tempfile.TemporaryDirectory() as directory:

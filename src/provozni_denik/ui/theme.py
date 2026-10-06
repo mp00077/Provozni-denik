@@ -40,6 +40,8 @@ QMenuBar::item:selected { background: #dceff0; border-radius: 4px; }
 QMenu { background: white; border: 1px solid #dfe6ef; padding: 6px; }
 QMenu::item { padding: 8px 24px; }
 QMenu::item:selected { background: #dceff0; color: #124e52; }
+QProgressBar { background: #dfe9ef; border: none; border-radius: 4px; max-height: 8px; min-height: 8px; }
+QProgressBar::chunk { background: #087f83; border-radius: 4px; }
 """
 
 

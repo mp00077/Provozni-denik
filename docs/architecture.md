@@ -1,8 +1,13 @@
 # Architektura
 
-`__main__` a balicí launcher volají `bootstrap.main`. Bootstrap vytvoří QApplication,
-nastaví umístění dat a logování. `application.run` otevře databázi, provede migrace,
-sestaví služby a otevře hlavní okno. Při ukončení zavře databázové spojení.
+`__main__` a balicí launcher volají `bootstrap.main`. Bootstrap vytvoří QApplication
+a zobrazí úvodní okno „Načítá se aplikace…“. Po spuštění Qt event loop nastaví
+logování a vytvoří `ApplicationSession`. Inicializace po krocích otevře databázi,
+provede migrace, sestaví služby a připraví hlavní okno. Každý krok nejprve oznámí
+svůj stav; další pokračování se naplánuje přes QTimer. Importy služeb a hlavního
+okna probíhají až v těchto krocích. Při ukončení se zavře databázové spojení.
+Inicializace zůstává v GUI vlákně kvůli Qt a vlastnictví SQLite spojení; jednotlivé
+synchronní operace mohou na dobu svého běhu pozastavit animaci indikátoru.
 
 Databáze je v `db/denik.sqlite3` v kořeni projektu při vývoji, vedle spustitelného
 souboru u Windows/Linux balíčku, nebo vedle `.app` na macOS. Logy jsou v `logs`

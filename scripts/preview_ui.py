@@ -26,6 +26,7 @@ def main():
     from provozni_denik.ui.dialogs.history_dialog import HistoryDialog
     from provozni_denik.ui.dialogs.settings_dialog import SettingsDialog
     from provozni_denik.ui.dialogs.about_dialog import AboutDialog
+    from provozni_denik.ui.windows.startup_window import StartupWindow
 
     class Identity:
         def current_actor(self):
@@ -41,6 +42,12 @@ def main():
     apply_theme(app)
     output = ROOT / "docs/images"
     output.mkdir(parents=True, exist_ok=True)
+    splash = StartupWindow()
+    splash.show()
+    splash.set_status("Připravuji databázi…")
+    app.processEvents()
+    splash.grab().save(str(output / "startup.png"))
+    splash.finish()
     with tempfile.TemporaryDirectory() as directory:
         config = Config(Path(directory))
         connection = connect(config.database_path)

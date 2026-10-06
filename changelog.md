@@ -8,6 +8,13 @@ vývoje v této konverzaci; datum změny se může lišit od data Git commitu.
 
 ### Vzhled a ovládání
 
+- Přidáno úvodní okno „Načítá se aplikace…“ s ikonou, indikátorem průběhu
+  a aktuálním krokem inicializace. Po dokončení se nahradí hlavním oknem.
+- Bootstrap spouští inicializaci až po otevření úvodního okna a mezi jednotlivými
+  kroky vrací řízení Qt. Databáze, služby a hlavní okno se načítají přes lazy importy.
+- Při chybě startu se zavře úvodní okno i databázové spojení a zobrazí se chyba.
+- Přidán Designer formulář úvodního okna a jeho zahrnutí do konfigurace balení,
+  doplněny testy inicializace a dokumentace startu.
 - Vytvořena ikona aplikace se serverovým rackem, štítem a značkou ověřeného
   přístupu. Připraveny formáty PNG, ICO a ICNS a nástroj pro jejich převod.
 - Ikona se zobrazuje v oknech aplikace a přidává se při sestavení do Windows EXE

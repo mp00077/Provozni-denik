@@ -7,6 +7,8 @@ filtr přítomných osob, export všech záznamů do CSV a konzistentní zálohu
 Rozhraní používá jednotný světlý motiv s tyrkysovými hlavními akcemi, přehledem
 přítomných osob a návštěv a přehlednými dialogy. Náhledy s ukázkovými daty jsou
 v `docs/images/`; obnovíte je příkazem `python scripts/preview_ui.py`.
+Při startu se nejprve zobrazí okno „Načítá se aplikace…“. Bootstrap poté postupně
+načte databázi, služby a hlavní okno pomocí lazy importů.
 Menu **Nápověda → O aplikaci** zobrazuje autora, datum sestavení, Git tag,
 krátký Git commit (celý po najetí myší) a verzi Pythonu použitého při sestavení.
 Jméno autora je odkaz na https://mp00077.github.io.

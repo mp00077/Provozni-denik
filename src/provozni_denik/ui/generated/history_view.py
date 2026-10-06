@@ -16,16 +16,32 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractButton, QAbstractItemView, QApplication, QDialog,
-    QDialogButtonBox, QHeaderView, QPlainTextEdit, QSizePolicy,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+    QDialogButtonBox, QHeaderView, QLabel, QPlainTextEdit,
+    QSizePolicy, QTableWidget, QTableWidgetItem, QVBoxLayout,
+    QWidget)
 
 class Ui_HistoryDialog(object):
     def setupUi(self, HistoryDialog):
         if not HistoryDialog.objectName():
             HistoryDialog.setObjectName(u"HistoryDialog")
         HistoryDialog.resize(850, 550)
+        HistoryDialog.setMinimumSize(QSize(800, 540))
         self.layout = QVBoxLayout(HistoryDialog)
+        self.layout.setSpacing(18)
         self.layout.setObjectName(u"layout")
+        self.layout.setContentsMargins(28, 28, 28, 28)
+        self.dialogTitle = QLabel(HistoryDialog)
+        self.dialogTitle.setObjectName(u"dialogTitle")
+        self.dialogTitle.setWordWrap(True)
+
+        self.layout.addWidget(self.dialogTitle)
+
+        self.dialogSubtitle = QLabel(HistoryDialog)
+        self.dialogSubtitle.setObjectName(u"dialogSubtitle")
+        self.dialogSubtitle.setWordWrap(True)
+
+        self.layout.addWidget(self.dialogSubtitle)
+
         self.eventsTable = QTableWidget(HistoryDialog)
         self.eventsTable.setObjectName(u"eventsTable")
         self.eventsTable.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -37,6 +53,7 @@ class Ui_HistoryDialog(object):
         self.detailsEdit = QPlainTextEdit(HistoryDialog)
         self.detailsEdit.setObjectName(u"detailsEdit")
         self.detailsEdit.setReadOnly(True)
+        self.detailsEdit.setMinimumHeight(170)
 
         self.layout.addWidget(self.detailsEdit)
 
@@ -54,5 +71,9 @@ class Ui_HistoryDialog(object):
 
     def retranslateUi(self, HistoryDialog):
         HistoryDialog.setWindowTitle(QCoreApplication.translate("HistoryDialog", u"Auditn\u00ed historie", None))
+        self.dialogTitle.setText(QCoreApplication.translate("HistoryDialog", u"Auditn\u00ed historie", None))
+        self.dialogTitle.setProperty(u"role", QCoreApplication.translate("HistoryDialog", u"title", None))
+        self.dialogSubtitle.setText(QCoreApplication.translate("HistoryDialog", u"Vyberte ud\u00e1lost a zobrazte p\u016fvodn\u00ed i nov\u00e9 hodnoty z\u00e1znamu.", None))
+        self.dialogSubtitle.setProperty(u"role", QCoreApplication.translate("HistoryDialog", u"subtitle", None))
     # retranslateUi
 

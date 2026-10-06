@@ -4,6 +4,10 @@ Základ lokální desktopové aplikace PySide6 pro evidenci přístupů do serve
 Podporuje příchody, odchody, opravy s důvodem, auditní historii, hledání,
 filtr přítomných osob, export všech záznamů do CSV a konzistentní zálohu SQLite.
 
+Rozhraní používá jednotný světlý motiv s tyrkysovými hlavními akcemi, přehledem
+přítomných osob a návštěv a přehlednými dialogy. Náhledy s ukázkovými daty jsou
+v `docs/images/`; obnovíte je příkazem `python scripts/preview_ui.py`.
+
 ## Vývojové spuštění
 
 Python 3.11 nebo novější. Příkazy spusťte v kořeni projektu ve stejném prostředí:
@@ -39,7 +43,11 @@ python scripts/build.py
 ```
 
 Build nejprve volá `pyside6-uic` (a pro případné `.qrc` také `pyside6-rcc`),
-potom PyInstaller. Výstup vznikne v `dist/<platforma>/`.
+potom PyInstaller. Výstup vznikne v `dist/provozní deník/`
+(na macOS také balíček `dist/provozní deník.app`).
+Git tag (např. `v0.1.0`) je volitelný; bez tagu build pokračuje bez verze z Gitu.
+Windows EXE obsahuje ikonu, autora Miroslav Pospíšil, popis souboru
+„provozní deník serverovny“ a verzi podle Git tagu. Podrobnosti: [build](docs/build.md).
 Windows, macOS a Linux se sestavují každý na svém systému. Build není automaticky
 spouštěn při startu aplikace ani při testech.
 

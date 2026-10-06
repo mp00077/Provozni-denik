@@ -1,18 +1,101 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <ui version="4.0">
  <class>SettingsDialog</class>
  <widget class="QDialog" name="SettingsDialog">
-  <property name="windowTitle"><string>Informace a nastavení</string></property>
-  <property name="minimumSize"><size><width>550</width><height>280</height></size></property>
+  <property name="windowTitle">
+   <string>Informace a nastavení</string>
+  </property>
   <layout class="QVBoxLayout" name="layout">
-   <item><widget class="QLabel" name="infoLabel"><property name="wordWrap"><bool>true</bool></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse</set></property><property name="text"><string/></property></widget></item>
-   <item><layout class="QFormLayout" name="form">
-    <item row="0" column="0"><widget class="QLabel" name="roomLabel"><property name="text"><string>Výchozí serverovna</string></property></widget></item>
-    <item row="0" column="1"><widget class="QLineEdit" name="roomEdit"><property name="maxLength"><number>150</number></property></widget></item>
-   </layout></item>
-   <item><widget class="QDialogButtonBox" name="buttonBox"><property name="standardButtons"><set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set></property></widget></item>
+   <item>
+    <widget class="QLabel" name="dialogTitle">
+     <property name="text">
+      <string>Nastavení</string>
+     </property>
+     <property name="role" stdset="0">
+      <string>title</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="dialogSubtitle">
+     <property name="text">
+      <string>Informace o aplikaci a výchozí hodnoty pro nové návštěvy.</string>
+     </property>
+     <property name="role" stdset="0">
+      <string>subtitle</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="infoLabel">
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextSelectableByMouse</set>
+     </property>
+     <property name="text">
+      <string />
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="form">
+     <item row="0" column="0">
+      <widget class="QLabel" name="roomLabel">
+       <property name="text">
+        <string>Výchozí serverovna</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="roomEdit">
+       <property name="maxLength">
+        <number>150</number>
+       </property>
+       <property name="placeholderText">
+        <string>Např. Serverovna A</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+     </property>
+    </widget>
+   </item>
+   <property name="leftMargin">
+    <number>28</number>
+   </property>
+   <property name="topMargin">
+    <number>28</number>
+   </property>
+   <property name="rightMargin">
+    <number>28</number>
+   </property>
+   <property name="bottomMargin">
+    <number>28</number>
+   </property>
+   <property name="spacing">
+    <number>18</number>
+   </property>
   </layout>
+  <property name="minimumSize">
+   <size>
+    <width>640</width>
+    <height>380</height>
+   </size>
+  </property>
  </widget>
- <resources/>
- <connections/>
+ <resources />
+ <connections />
 </ui>

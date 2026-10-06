@@ -1,33 +1,445 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="windowTitle"><string>Provozní deník — serverovna</string></property>
-  <property name="geometry"><rect><x>0</x><y>0</y><width>1100</width><height>650</height></rect></property>
+  <property name="windowTitle">
+   <string>Provozní deník — serverovna</string>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1240</width>
+    <height>800</height>
+   </rect>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="layout">
-    <item><widget class="QLabel" name="heading"><property name="text"><string>Evidence přístupů do serverovny</string></property></widget></item>
-    <item><layout class="QHBoxLayout" name="toolbar">
-     <item><widget class="QPushButton" name="arrivalButton"><property name="text"><string>Zapsat příchod</string></property></widget></item>
-     <item><widget class="QPushButton" name="departureButton"><property name="text"><string>Zapsat odchod</string></property></widget></item>
-     <item><widget class="QPushButton" name="correctButton"><property name="text"><string>Opravit záznam</string></property></widget></item>
-     <item><widget class="QPushButton" name="historyButton"><property name="text"><string>Historie záznamu</string></property></widget></item>
-     <item><widget class="QPushButton" name="refreshButton"><property name="text"><string>Obnovit</string></property></widget></item>
-    </layout></item>
-    <item><layout class="QHBoxLayout" name="filters">
-     <item><widget class="QLineEdit" name="searchEdit"><property name="placeholderText"><string>Hledat osobu, serverovnu nebo účel…</string></property><property name="clearButtonEnabled"><bool>true</bool></property></widget></item>
-     <item><widget class="QCheckBox" name="openOnlyCheck"><property name="text"><string>Pouze přítomné osoby</string></property></widget></item>
-    </layout></item>
-    <item><widget class="QTableView" name="visitsTable"><property name="alternatingRowColors"><bool>true</bool></property><property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property><property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property><property name="sortingEnabled"><bool>true</bool></property></widget></item>
-    <item><layout class="QHBoxLayout" name="footer">
-     <item><widget class="QPushButton" name="exportButton"><property name="text"><string>Export CSV</string></property></widget></item>
-     <item><widget class="QPushButton" name="backupButton"><property name="text"><string>Záloha databáze</string></property></widget></item>
-     <item><widget class="QPushButton" name="settingsButton"><property name="text"><string>Informace a nastavení</string></property></widget></item>
-    </layout></item>
+    <property name="leftMargin">
+     <number>28</number>
+    </property>
+    <property name="topMargin">
+     <number>28</number>
+    </property>
+    <property name="rightMargin">
+     <number>28</number>
+    </property>
+    <property name="bottomMargin">
+     <number>28</number>
+    </property>
+    <property name="spacing">
+     <number>20</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="headerLayout">
+      <item>
+       <layout class="QVBoxLayout" name="titleLayout">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="eyebrow">
+          <property name="text">
+           <string>SPRÁVA SERVEROVNY</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>eyebrow</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="heading">
+          <property name="text">
+           <string>Provozní deník</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="subtitle">
+          <property name="text">
+           <string>Přístupy, přítomné osoby a historie návštěv na jednom místě.</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>subtitle</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="headerSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="arrivalButton">
+        <property name="role" stdset="0">
+         <string>primary</string>
+        </property>
+        <property name="text">
+         <string>+  Zapsat příchod</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="metricsLayout">
+      <property name="spacing">
+       <number>16</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="presentCard">
+        <property name="role" stdset="0">
+         <string>card</string>
+        </property>
+        <layout class="QVBoxLayout" name="presentLayout">
+         <property name="leftMargin">
+          <number>18</number>
+         </property>
+         <property name="topMargin">
+          <number>18</number>
+         </property>
+         <property name="rightMargin">
+          <number>18</number>
+         </property>
+         <property name="bottomMargin">
+          <number>18</number>
+         </property>
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="presentValue">
+           <property name="text">
+            <string>0</string>
+           </property>
+           <property name="role" stdset="0">
+            <string>metric</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="presentCaption">
+           <property name="text">
+            <string>Aktuálně přítomné osoby</string>
+           </property>
+           <property name="role" stdset="0">
+            <string>metricLabel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="totalCard">
+        <property name="role" stdset="0">
+         <string>card</string>
+        </property>
+        <layout class="QVBoxLayout" name="totalLayout">
+         <property name="leftMargin">
+          <number>18</number>
+         </property>
+         <property name="topMargin">
+          <number>18</number>
+         </property>
+         <property name="rightMargin">
+          <number>18</number>
+         </property>
+         <property name="bottomMargin">
+          <number>18</number>
+         </property>
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="totalValue">
+           <property name="text">
+            <string>0</string>
+           </property>
+           <property name="role" stdset="0">
+            <string>metric</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="totalCaption">
+           <property name="text">
+            <string>Celkem evidovaných návštěv</string>
+           </property>
+           <property name="role" stdset="0">
+            <string>metricLabel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="closedCard">
+        <property name="role" stdset="0">
+         <string>card</string>
+        </property>
+        <layout class="QVBoxLayout" name="closedLayout">
+         <property name="leftMargin">
+          <number>18</number>
+         </property>
+         <property name="topMargin">
+          <number>18</number>
+         </property>
+         <property name="rightMargin">
+          <number>18</number>
+         </property>
+         <property name="bottomMargin">
+          <number>18</number>
+         </property>
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="closedValue">
+           <property name="text">
+            <string>0</string>
+           </property>
+           <property name="role" stdset="0">
+            <string>metric</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="closedCaption">
+           <property name="text">
+            <string>Uzavřené návštěvy</string>
+           </property>
+           <property name="role" stdset="0">
+            <string>metricLabel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QFrame" name="recordsCard">
+      <property name="role" stdset="0">
+       <string>card</string>
+      </property>
+      <layout class="QVBoxLayout" name="recordsLayout">
+       <property name="leftMargin">
+        <number>18</number>
+       </property>
+       <property name="topMargin">
+        <number>18</number>
+       </property>
+       <property name="rightMargin">
+        <number>18</number>
+       </property>
+       <property name="bottomMargin">
+        <number>18</number>
+       </property>
+       <property name="spacing">
+        <number>16</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="recordsHeader">
+         <item>
+          <widget class="QLabel" name="recordsTitle">
+           <property name="text">
+            <string>Evidence návštěv</string>
+           </property>
+           <property name="role" stdset="0">
+            <string>section</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="recordsSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="refreshButton">
+           <property name="text">
+            <string>Obnovit</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="filters">
+         <item>
+          <widget class="QLineEdit" name="searchEdit">
+           <property name="placeholderText">
+            <string>Hledat osobu, serverovnu nebo účel…</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="openOnlyCheck">
+           <property name="text">
+            <string>Pouze přítomné osoby</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QTableView" name="visitsTable">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="showGrid">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="emptyLabel">
+         <property name="text">
+          <string>Zatím nejsou evidované žádné návštěvy.</string>
+         </property>
+         <property name="role" stdset="0">
+          <string>subtitle</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="toolbar">
+         <item>
+          <widget class="QPushButton" name="departureButton">
+           <property name="text">
+            <string>Zapsat odchod</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="correctButton">
+           <property name="text">
+            <string>Opravit záznam</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="historyButton">
+           <property name="text">
+            <string>Historie záznamu</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="selectionSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="resultLabel">
+           <property name="text">
+            <string>0 záznamů</string>
+           </property>
+           <property name="role" stdset="0">
+            <string>subtitle</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="footer">
+      <item>
+       <spacer name="footerSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="exportButton">
+        <property name="text">
+         <string>Export CSV</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="backupButton">
+        <property name="text">
+         <string>Záloha databáze</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="settingsButton">
+        <property name="text">
+         <string>Nastavení</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar" />
+  <property name="minimumSize">
+   <size>
+    <width>980</width>
+    <height>680</height>
+   </size>
+  </property>
  </widget>
- <resources/>
- <connections/>
+ <resources />
+ <connections />
 </ui>

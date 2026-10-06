@@ -9,8 +9,14 @@ class HistoryDialog(QDialog):
         super().__init__(parent)
         self.ui = Ui_HistoryDialog()
         self.ui.setupUi(self)
+        from provozni_denik.ui.theme import style_dialog
+        style_dialog(self)
         self.events = events
         table = self.ui.eventsTable
+        table.verticalHeader().hide()
+        table.verticalHeader().setDefaultSectionSize(44)
+        table.setAlternatingRowColors(True)
+        table.setShowGrid(False)
         table.setColumnCount(4)
         table.setHorizontalHeaderLabels(["Čas", "Událost", "Operátor", "Důvod"])
         table.setRowCount(len(events))
@@ -33,5 +39,18 @@ class HistoryDialog(QDialog):
             event = self.events[row]
             before = json.loads(event["before_json"]) if event["before_json"] else None
             after = json.loads(event["after_json"])
-            self.ui.detailsEdit.setPlainText("Původní hodnoty:\n" + json.dumps(before, ensure_ascii=False, indent=2)
-                                            + "\n\nNové hodnoty:\n" + json.dumps(after, ensure_ascii=False, indent=2))
+            fields = {"person": "Osoba", "room": "Serverovna", "purpose": "Účel návštěvy",
+                      "escort": "Doprovod", "arrived_at": "Příchod", "departed_at": "Odchod",
+                      "created_by": "Zapsal"}
+            def describe(values):
+                if values is None:
+                    return "Nový záznam — původní hodnoty nejsou k dispozici."
+                lines = []
+                for key, caption in fields.items():
+                    value = values.get(key)
+                    if key in ("arrived_at", "departed_at"):
+                        value = local_time(value)
+                    lines.append(f"{caption}: {value or '—'}")
+                return "\n".join(lines)
+            self.ui.detailsEdit.setPlainText("PŮVODNÍ HODNOTY\n" + describe(before)
+                                            + "\n\nNOVÉ HODNOTY\n" + describe(after))

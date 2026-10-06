@@ -30,6 +30,8 @@ class WindowTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([])
+        from provozni_denik.ui.theme import apply_theme
+        apply_theme(cls.app)
 
     def test_forms_save_filter_and_show_history(self):
         with tempfile.TemporaryDirectory() as directory:

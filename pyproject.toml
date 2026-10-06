@@ -19,4 +19,4 @@ provozni-denik = "provozni_denik.bootstrap:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-provozni_denik = ["infrastructure/database/migrations/*.sql", "ui/forms/*.ui", "ui/resources/*.qrc"]
+provozni_denik = ["infrastructure/database/migrations/*.sql", "ui/forms/*.ui", "ui/resources/*.qrc", "ui/resources/icons/*.png"]

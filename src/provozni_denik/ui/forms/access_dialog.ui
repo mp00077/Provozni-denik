@@ -1,26 +1,172 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <ui version="4.0">
  <class>AccessDialog</class>
  <widget class="QDialog" name="AccessDialog">
-  <property name="windowTitle"><string>Zapsat příchod</string></property>
-  <property name="minimumSize"><size><width>480</width><height>300</height></size></property>
+  <property name="windowTitle">
+   <string>Zapsat příchod</string>
+  </property>
   <layout class="QVBoxLayout" name="layout">
-   <item><layout class="QFormLayout" name="form">
-    <item row="0" column="0"><widget class="QLabel" name="personLabel"><property name="text"><string>Osoba *</string></property></widget></item>
-    <item row="0" column="1"><widget class="QLineEdit" name="personEdit"><property name="maxLength"><number>150</number></property></widget></item>
-    <item row="1" column="0"><widget class="QLabel" name="roomLabel"><property name="text"><string>Serverovna *</string></property></widget></item>
-    <item row="1" column="1"><widget class="QLineEdit" name="roomEdit"><property name="maxLength"><number>150</number></property></widget></item>
-    <item row="2" column="0"><widget class="QLabel" name="purposeLabel"><property name="text"><string>Účel vstupu *</string></property></widget></item>
-    <item row="2" column="1"><widget class="QLineEdit" name="purposeEdit"><property name="maxLength"><number>1000</number></property></widget></item>
-    <item row="3" column="0"><widget class="QLabel" name="escortLabel"><property name="text"><string>Doprovod</string></property></widget></item>
-    <item row="3" column="1"><widget class="QLineEdit" name="escortEdit"><property name="maxLength"><number>150</number></property></widget></item>
-    <item row="4" column="0"><widget class="QLabel" name="reasonLabel"><property name="text"><string>Důvod opravy *</string></property></widget></item>
-    <item row="4" column="1"><widget class="QLineEdit" name="reasonEdit"><property name="maxLength"><number>1000</number></property></widget></item>
-   </layout></item>
-   <item><widget class="QLabel" name="errorLabel"><property name="wordWrap"><bool>true</bool></property><property name="text"><string/></property></widget></item>
-   <item><widget class="QDialogButtonBox" name="buttonBox"><property name="standardButtons"><set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set></property></widget></item>
+   <item>
+    <widget class="QLabel" name="dialogTitle">
+     <property name="text">
+      <string>Zapsat příchod</string>
+     </property>
+     <property name="role" stdset="0">
+      <string>title</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="dialogSubtitle">
+     <property name="text">
+      <string>Vyplňte údaje návštěvy. Pole označená * jsou povinná.</string>
+     </property>
+     <property name="role" stdset="0">
+      <string>subtitle</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="form">
+     <item row="0" column="0">
+      <widget class="QLabel" name="personLabel">
+       <property name="text">
+        <string>Osoba *</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="personEdit">
+       <property name="maxLength">
+        <number>150</number>
+       </property>
+       <property name="placeholderText">
+        <string>Jméno a příjmení</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="roomLabel">
+       <property name="text">
+        <string>Serverovna *</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="roomEdit">
+       <property name="maxLength">
+        <number>150</number>
+       </property>
+       <property name="placeholderText">
+        <string>Název nebo označení serverovny</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="purposeLabel">
+       <property name="text">
+        <string>Účel vstupu *</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="purposeEdit">
+       <property name="maxLength">
+        <number>1000</number>
+       </property>
+       <property name="placeholderText">
+        <string>Důvod návštěvy</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="escortLabel">
+       <property name="text">
+        <string>Doprovod</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="escortEdit">
+       <property name="maxLength">
+        <number>150</number>
+       </property>
+       <property name="placeholderText">
+        <string>Jméno doprovázející osoby (nepovinné)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="reasonLabel">
+       <property name="text">
+        <string>Důvod opravy *</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="reasonEdit">
+       <property name="maxLength">
+        <number>1000</number>
+       </property>
+       <property name="placeholderText">
+        <string>Proč je nutné záznam opravit?</string>
+       </property>
+      </widget>
+     </item>
+     <property name="verticalSpacing">
+      <number>18</number>
+     </property>
+     <property name="horizontalSpacing">
+      <number>22</number>
+     </property>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="errorLabel">
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string />
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+     </property>
+    </widget>
+   </item>
+   <property name="leftMargin">
+    <number>28</number>
+   </property>
+   <property name="topMargin">
+    <number>28</number>
+   </property>
+   <property name="rightMargin">
+    <number>28</number>
+   </property>
+   <property name="bottomMargin">
+    <number>28</number>
+   </property>
+   <property name="spacing">
+    <number>18</number>
+   </property>
   </layout>
+  <property name="minimumSize">
+   <size>
+    <width>580</width>
+    <height>440</height>
+   </size>
+  </property>
  </widget>
- <resources/>
- <connections/>
+ <resources />
+ <connections />
 </ui>

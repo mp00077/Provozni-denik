@@ -22,7 +22,12 @@ class MainWindow(QMainWindow):
         self.proxy.setSourceModel(self.model)
         self.ui.visitsTable.setModel(self.proxy)
         self.ui.visitsTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
-        self.ui.visitsTable.horizontalHeader().setStretchLastSection(True)
+        self.ui.visitsTable.horizontalHeader().setStretchLastSection(False)
+        self.ui.visitsTable.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
+        self.ui.visitsTable.verticalHeader().hide()
+        self.ui.visitsTable.verticalHeader().setDefaultSectionSize(48)
+        self.ui.visitsTable.setWordWrap(False)
+        self.ui.exportButton.setToolTip("Export všech návštěv bez ohledu na aktuální filtr")
         self.ui.visitsTable.sortByColumn(0, Qt.SortOrder.DescendingOrder)
         for button, method in (("arrival", self.arrive), ("departure", self.depart),
                                ("correct", self.correct), ("history", self.history),
@@ -46,13 +51,27 @@ class MainWindow(QMainWindow):
     def refresh(self):
         visits = self.access.list_visits()
         self.model.replace(visits)
+        present = sum(v.departed_at is None for v in visits)
+        self.ui.presentValue.setText(str(len({v.person for v in visits if v.departed_at is None})))
+        self.ui.totalValue.setText(str(len(visits)))
+        self.ui.closedValue.setText(str(len(visits) - present))
+        self.update_results()
         self.ui.statusbar.showMessage(f"Operátor: {self.identity.current_actor()} | Záznamů: {len(visits)} | "
                                       f"Přítomno: {sum(v.departed_at is None for v in visits)}")
         self.update_actions()
 
     def filter(self, *_):
         self.proxy.update_filter(self.ui.searchEdit.text(), self.ui.openOnlyCheck.isChecked())
+        self.update_results()
         self.update_actions()
+
+    def update_results(self):
+        count = self.proxy.rowCount()
+        self.ui.resultLabel.setText(f"Zobrazeno {count} z {len(self.model.visits)}")
+        self.ui.emptyLabel.setVisible(count == 0)
+        self.ui.emptyLabel.setText("Žádné návštěvy neodpovídají filtru. Změňte hledání nebo filtr přítomnosti."
+                                   if self.model.visits else
+                                   "Zatím nejsou evidované žádné návštěvy. Začněte tlačítkem Zapsat příchod.")
 
     def selected(self):
         rows = self.ui.visitsTable.selectionModel().selectedRows()

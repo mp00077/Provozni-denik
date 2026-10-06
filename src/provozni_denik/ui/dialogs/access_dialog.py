@@ -8,6 +8,9 @@ class AccessDialog(QDialog):
         super().__init__(parent)
         self.ui = Ui_AccessDialog()
         self.ui.setupUi(self)
+        from provozni_denik.ui.theme import style_dialog
+        style_dialog(self)
+        self.ui.errorLabel.hide()
         self.access = access
         self.visit = visit
         self.ui.roomEdit.setText(default_room)
@@ -15,6 +18,8 @@ class AccessDialog(QDialog):
         self.ui.reasonEdit.setVisible(visit is not None)
         if visit:
             self.setWindowTitle(f"Opravit záznam č. {visit.id}")
+            self.ui.dialogTitle.setText("Opravit záznam")
+            self.ui.dialogSubtitle.setText(f"Návštěva č. {visit.id} • Každá oprava zůstává v auditní historii.")
             for name, value in (("person", visit.person), ("room", visit.room),
                                 ("purpose", visit.purpose), ("escort", visit.escort)):
                 getattr(self.ui, name + "Edit").setText(value)
@@ -32,9 +37,11 @@ class AccessDialog(QDialog):
                 self.access.arrive(*values)
         except ValidationError as error:
             self.ui.errorLabel.setText(str(error))
+            self.ui.errorLabel.show()
         except Exception:
             import logging
             logging.exception("Zápis návštěvy selhal")
             self.ui.errorLabel.setText("Záznam nebyl uložen. Zkontrolujte diagnostický log.")
+            self.ui.errorLabel.show()
         else:
             self.accept()

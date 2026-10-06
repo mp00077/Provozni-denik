@@ -8,6 +8,8 @@ class SettingsDialog(QDialog):
         super().__init__(parent)
         self.ui = Ui_SettingsDialog()
         self.ui.setupUi(self)
+        from provozni_denik.ui.theme import style_dialog
+        style_dialog(self)
         self.settings = settings
         self.ui.infoLabel.setText(f"Provozní deník {VERSION}\nOperátor (účet OS): {actor}\n"
                                   f"Databáze: {config.database_path}\n"

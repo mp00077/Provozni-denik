@@ -3,7 +3,7 @@ from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, QSortFilterProx
 
 
 def local_time(value):
-    return datetime.fromisoformat(value).astimezone().strftime("%d.%m.%Y %H:%M:%S %Z") if value else "Přítomen"
+    return datetime.fromisoformat(value).astimezone().strftime("%d.%m.%Y %H:%M:%S") if value else "Přítomen"
 
 
 class VisitsModel(QAbstractTableModel):
@@ -30,6 +30,11 @@ class VisitsModel(QAbstractTableModel):
         visit = self.visits[index.row()]
         values = [visit.id, visit.person, visit.room, visit.purpose, visit.escort,
                   visit.arrived_at, visit.departed_at, visit.created_by]
+        if role == Qt.ItemDataRole.ToolTipRole:
+            value = values[index.column()]
+            if index.column() in (5, 6) and value:
+                return datetime.fromisoformat(value).astimezone().isoformat(timespec="seconds")
+            return str(value) if value is not None else "Osoba je dosud přítomna"
         if role == Qt.ItemDataRole.UserRole:
             return values[index.column()] if values[index.column()] is not None else ""
         if role == Qt.ItemDataRole.DisplayRole:

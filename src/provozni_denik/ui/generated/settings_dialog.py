@@ -23,9 +23,23 @@ class Ui_SettingsDialog(object):
     def setupUi(self, SettingsDialog):
         if not SettingsDialog.objectName():
             SettingsDialog.setObjectName(u"SettingsDialog")
-        SettingsDialog.setMinimumSize(QSize(550, 280))
+        SettingsDialog.setMinimumSize(QSize(640, 380))
         self.layout = QVBoxLayout(SettingsDialog)
+        self.layout.setSpacing(18)
         self.layout.setObjectName(u"layout")
+        self.layout.setContentsMargins(28, 28, 28, 28)
+        self.dialogTitle = QLabel(SettingsDialog)
+        self.dialogTitle.setObjectName(u"dialogTitle")
+        self.dialogTitle.setWordWrap(True)
+
+        self.layout.addWidget(self.dialogTitle)
+
+        self.dialogSubtitle = QLabel(SettingsDialog)
+        self.dialogSubtitle.setObjectName(u"dialogSubtitle")
+        self.dialogSubtitle.setWordWrap(True)
+
+        self.layout.addWidget(self.dialogSubtitle)
+
         self.infoLabel = QLabel(SettingsDialog)
         self.infoLabel.setObjectName(u"infoLabel")
         self.infoLabel.setWordWrap(True)
@@ -63,7 +77,12 @@ class Ui_SettingsDialog(object):
 
     def retranslateUi(self, SettingsDialog):
         SettingsDialog.setWindowTitle(QCoreApplication.translate("SettingsDialog", u"Informace a nastaven\u00ed", None))
+        self.dialogTitle.setText(QCoreApplication.translate("SettingsDialog", u"Nastaven\u00ed", None))
+        self.dialogTitle.setProperty(u"role", QCoreApplication.translate("SettingsDialog", u"title", None))
+        self.dialogSubtitle.setText(QCoreApplication.translate("SettingsDialog", u"Informace o aplikaci a v\u00fdchoz\u00ed hodnoty pro nov\u00e9 n\u00e1v\u0161t\u011bvy.", None))
+        self.dialogSubtitle.setProperty(u"role", QCoreApplication.translate("SettingsDialog", u"subtitle", None))
         self.infoLabel.setText("")
         self.roomLabel.setText(QCoreApplication.translate("SettingsDialog", u"V\u00fdchoz\u00ed serverovna", None))
+        self.roomEdit.setPlaceholderText(QCoreApplication.translate("SettingsDialog", u"Nap\u0159. Serverovna A", None))
     # retranslateUi
 

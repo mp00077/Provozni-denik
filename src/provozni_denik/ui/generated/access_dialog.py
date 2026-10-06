@@ -23,11 +23,27 @@ class Ui_AccessDialog(object):
     def setupUi(self, AccessDialog):
         if not AccessDialog.objectName():
             AccessDialog.setObjectName(u"AccessDialog")
-        AccessDialog.setMinimumSize(QSize(480, 300))
+        AccessDialog.setMinimumSize(QSize(580, 440))
         self.layout = QVBoxLayout(AccessDialog)
+        self.layout.setSpacing(18)
         self.layout.setObjectName(u"layout")
+        self.layout.setContentsMargins(28, 28, 28, 28)
+        self.dialogTitle = QLabel(AccessDialog)
+        self.dialogTitle.setObjectName(u"dialogTitle")
+        self.dialogTitle.setWordWrap(True)
+
+        self.layout.addWidget(self.dialogTitle)
+
+        self.dialogSubtitle = QLabel(AccessDialog)
+        self.dialogSubtitle.setObjectName(u"dialogSubtitle")
+        self.dialogSubtitle.setWordWrap(True)
+
+        self.layout.addWidget(self.dialogSubtitle)
+
         self.form = QFormLayout()
         self.form.setObjectName(u"form")
+        self.form.setVerticalSpacing(18)
+        self.form.setHorizontalSpacing(22)
         self.personLabel = QLabel(AccessDialog)
         self.personLabel.setObjectName(u"personLabel")
 
@@ -106,11 +122,20 @@ class Ui_AccessDialog(object):
 
     def retranslateUi(self, AccessDialog):
         AccessDialog.setWindowTitle(QCoreApplication.translate("AccessDialog", u"Zapsat p\u0159\u00edchod", None))
+        self.dialogTitle.setText(QCoreApplication.translate("AccessDialog", u"Zapsat p\u0159\u00edchod", None))
+        self.dialogTitle.setProperty(u"role", QCoreApplication.translate("AccessDialog", u"title", None))
+        self.dialogSubtitle.setText(QCoreApplication.translate("AccessDialog", u"Vypl\u0148te \u00fadaje n\u00e1v\u0161t\u011bvy. Pole ozna\u010den\u00e1 * jsou povinn\u00e1.", None))
+        self.dialogSubtitle.setProperty(u"role", QCoreApplication.translate("AccessDialog", u"subtitle", None))
         self.personLabel.setText(QCoreApplication.translate("AccessDialog", u"Osoba *", None))
+        self.personEdit.setPlaceholderText(QCoreApplication.translate("AccessDialog", u"Jm\u00e9no a p\u0159\u00edjmen\u00ed", None))
         self.roomLabel.setText(QCoreApplication.translate("AccessDialog", u"Serverovna *", None))
+        self.roomEdit.setPlaceholderText(QCoreApplication.translate("AccessDialog", u"N\u00e1zev nebo ozna\u010den\u00ed serverovny", None))
         self.purposeLabel.setText(QCoreApplication.translate("AccessDialog", u"\u00da\u010del vstupu *", None))
+        self.purposeEdit.setPlaceholderText(QCoreApplication.translate("AccessDialog", u"D\u016fvod n\u00e1v\u0161t\u011bvy", None))
         self.escortLabel.setText(QCoreApplication.translate("AccessDialog", u"Doprovod", None))
+        self.escortEdit.setPlaceholderText(QCoreApplication.translate("AccessDialog", u"Jm\u00e9no doprov\u00e1zej\u00edc\u00ed osoby (nepovinn\u00e9)", None))
         self.reasonLabel.setText(QCoreApplication.translate("AccessDialog", u"D\u016fvod opravy *", None))
+        self.reasonEdit.setPlaceholderText(QCoreApplication.translate("AccessDialog", u"Pro\u010d je nutn\u00e9 z\u00e1znam opravit?", None))
         self.errorLabel.setText("")
     # retranslateUi
 

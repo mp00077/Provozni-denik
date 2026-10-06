@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HistoryDialog</class>
+ <widget class="QDialog" name="HistoryDialog">
+  <property name="windowTitle"><string>Auditní historie</string></property>
+  <property name="geometry"><rect><x>0</x><y>0</y><width>850</width><height>550</height></rect></property>
+  <layout class="QVBoxLayout" name="layout">
+   <item><widget class="QTableWidget" name="eventsTable"><property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property><property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property><property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property></widget></item>
+   <item><widget class="QPlainTextEdit" name="detailsEdit"><property name="readOnly"><bool>true</bool></property></widget></item>
+   <item><widget class="QDialogButtonBox" name="buttonBox"><property name="standardButtons"><set>QDialogButtonBox::Close</set></property></widget></item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

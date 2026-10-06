@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowTitle"><string>Provozní deník — serverovna</string></property>
+  <property name="geometry"><rect><x>0</x><y>0</y><width>1100</width><height>650</height></rect></property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="layout">
+    <item><widget class="QLabel" name="heading"><property name="text"><string>Evidence přístupů do serverovny</string></property></widget></item>
+    <item><layout class="QHBoxLayout" name="toolbar">
+     <item><widget class="QPushButton" name="arrivalButton"><property name="text"><string>Zapsat příchod</string></property></widget></item>
+     <item><widget class="QPushButton" name="departureButton"><property name="text"><string>Zapsat odchod</string></property></widget></item>
+     <item><widget class="QPushButton" name="correctButton"><property name="text"><string>Opravit záznam</string></property></widget></item>
+     <item><widget class="QPushButton" name="historyButton"><property name="text"><string>Historie záznamu</string></property></widget></item>
+     <item><widget class="QPushButton" name="refreshButton"><property name="text"><string>Obnovit</string></property></widget></item>
+    </layout></item>
+    <item><layout class="QHBoxLayout" name="filters">
+     <item><widget class="QLineEdit" name="searchEdit"><property name="placeholderText"><string>Hledat osobu, serverovnu nebo účel…</string></property><property name="clearButtonEnabled"><bool>true</bool></property></widget></item>
+     <item><widget class="QCheckBox" name="openOnlyCheck"><property name="text"><string>Pouze přítomné osoby</string></property></widget></item>
+    </layout></item>
+    <item><widget class="QTableView" name="visitsTable"><property name="alternatingRowColors"><bool>true</bool></property><property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property><property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property><property name="sortingEnabled"><bool>true</bool></property></widget></item>
+    <item><layout class="QHBoxLayout" name="footer">
+     <item><widget class="QPushButton" name="exportButton"><property name="text"><string>Export CSV</string></property></widget></item>
+     <item><widget class="QPushButton" name="backupButton"><property name="text"><string>Záloha databáze</string></property></widget></item>
+     <item><widget class="QPushButton" name="settingsButton"><property name="text"><string>Informace a nastavení</string></property></widget></item>
+    </layout></item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -4,6 +4,8 @@ import re
 import subprocess
 import sys
 from dataclasses import dataclass
+from datetime import datetime, timezone
+import platform as python_platform
 from pathlib import Path
 
 AUTHOR = "Miroslav Pospíšil"
@@ -80,7 +82,17 @@ def prepare_metadata(root: Path, platform: str | None = None) -> dict:
     output.mkdir(parents=True, exist_ok=True)
     version_file = output / "windows-version.txt"
     version_file.write_text(windows_version_text(version), encoding="utf-8")
+    try:
+        commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, check=True,
+                                capture_output=True, text=True, encoding="utf-8").stdout.strip()
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        commit = None
     metadata_file = output / "_build_metadata.json"
     metadata_file.write_text(json.dumps({"version": version.tag if version else None, "author": AUTHOR,
-                                         "description": DESCRIPTION}, ensure_ascii=False, indent=2), encoding="utf-8")
+                                         "description": DESCRIPTION,
+                                         "built_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                                         "git_tag": version.tag if version else None,
+                                         "git_commit": commit,
+                                         "python_version": python_platform.python_version()},
+                                        ensure_ascii=False, indent=2), encoding="utf-8")
     return {"version": version, "icon": icon, "windows_version": version_file, "metadata": metadata_file}

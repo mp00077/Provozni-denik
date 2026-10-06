@@ -432,6 +432,14 @@
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <widget class="QMenu" name="helpMenu">
+    <property name="title"><string>Nápověda</string></property>
+    <addaction name="aboutAction"/>
+   </widget>
+   <addaction name="helpMenu"/>
+  </widget>
+  <action name="aboutAction"><property name="text"><string>O aplikaci…</string></property><property name="menuRole"><enum>QAction::AboutRole</enum></property></action>
   <widget class="QStatusBar" name="statusbar" />
   <property name="minimumSize">
    <size>

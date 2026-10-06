@@ -34,6 +34,12 @@ QStatusBar { background: #eaf0f6; color: #52667f; border-top: 1px solid #dfe6ef;
 QStatusBar::item { border: none; }
 QLabel#errorLabel { color: #a72c37; background: #fff0f1; border-radius: 6px; padding: 10px; }
 QToolTip { background: #173753; color: white; border: none; padding: 8px; }
+QMenuBar { background: white; padding: 4px 12px; border-bottom: 1px solid #dfe6ef; }
+QMenuBar::item { padding: 6px 12px; background: transparent; }
+QMenuBar::item:selected { background: #dceff0; border-radius: 4px; }
+QMenu { background: white; border: 1px solid #dfe6ef; padding: 6px; }
+QMenu::item { padding: 8px 24px; }
+QMenu::item:selected { background: #dceff0; color: #124e52; }
 """
 
 

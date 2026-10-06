@@ -10,20 +10,23 @@ a sestaví aplikaci. Odkazy na jiné adresáře odmítne; při chybě mazání b
 ## Verze, autor a ikony
 
 Verze se odvozuje pomocí `git describe --tags --abbrev=0 HEAD` z nejbližšího
-dostupného tagu v historii aktuálního commitu. Podporovány jsou tagy `v1.2.3`,
-`1.2.3`, `1.2.3.4` a přípony jako `v1.2.3-rc.1`. Bez dostupného tagu nebo Gitu
+dostupného tagu v historii aktuálního commitu. Formát tagu se nekontroluje;
+libovolný tag se zachová jako textová verze. Bez dostupného tagu nebo Gitu
 build pokračuje a textové položky verze vynechá. Autor, popis a ikona zůstávají.
 Pevný Windows resource vyžaduje číselnou verzi; bez tagu má nulovou hodnotu
 `0.0.0.0`. Aplikace pak v informacích zobrazuje „bez verze“. Na macOS se explicitní
-verze nepředává balicímu nástroji. Nepodporovaný existující tag je nadále chyba.
+verze nepředává balicímu nástroji.
 Například první tag můžete volitelně vytvořit ručně:
 
 ```shell
 git tag v0.1.0
 ```
 
-Pro vydání vytvářejte tag přímo na vydávaném commitu. Části číselné verze musí
-být v rozsahu 0–65535. Textová verze v EXE zachovává celý tag, pevná číselná verze
+Pro vydání vytvářejte tag přímo na vydávaném commitu. Pro číselnou verzi OS se
+použijí první čtyři skupiny číslic před příponou oddělenou `-` nebo `+`;
+chybějící části se doplní nulami. Pokud tag neobsahuje čísla nebo jsou mimo rozsah
+0–65535, použije se číselná verze `0.0.0.0` a build pokračuje.
+Textová verze v EXE a aplikaci zachovává celý tag, pevná číselná verze
 Windows například pro `v1.2.3` obsahuje `1.2.3.0`. Zabalená aplikace zobrazuje
 stejný Git tag v informacích. Vývojové spuštění nadále používá `0.1.0`.
 
@@ -36,6 +39,11 @@ v běžném poli Společnost. Nejde o digitální podpis ani ověřeného vydava
 Linux používá PNG pro ikonu oken; ELF soubor nemá Windows záložku Podrobnosti
 ani obdobný vložený ICO resource. PNG je přibalena i pro ostatní platformy.
 Metadata se generují pod `build/<platforma>/metadata/`.
+Do aplikace se přibalí také datum a čas sestavení v UTC, celý Git commit a verze
+Pythonu build prostředí. Menu **Nápověda → O aplikaci** tyto údaje zobrazuje;
+čas sestavení převede do místního pásma a uvede UTC offset. Zabalená aplikace
+nepotřebuje Git na cílovém počítači. Při spuštění ze zdrojů ukáže „Nesestaveno“,
+aktuální Python a Git údaje zdrojového repozitáře, pokud jsou dostupné.
 
 Ikony jsou již připravené; build nevyžaduje Pillow. Při budoucí výměně PNG je
 možné použít `python scripts/prepare_icons.py cesta/k/ikone.png` (vyžaduje Pillow).

@@ -1,13 +1,18 @@
-import os
 import sys
 from pathlib import Path
 
 
+def application_directory() -> Path:
+    """Stabilní cesta aplikace; nezávisí na pracovním adresáři ani _MEIPASS."""
+    if getattr(sys, "frozen", False):
+        executable = Path(sys.executable).resolve()
+        if sys.platform == "darwin":
+            for parent in executable.parents:
+                if parent.suffix == ".app":
+                    return parent.parent
+        return executable.parent
+    return Path(__file__).resolve().parents[3]
+
+
 def data_directory() -> Path:
-    if sys.platform == "win32":
-        base = Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData/Local"))
-    elif sys.platform == "darwin":
-        base = Path.home() / "Library/Application Support"
-    else:
-        base = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share"))
-    return base / "ProvozniDenik"
+    return application_directory() / "db"

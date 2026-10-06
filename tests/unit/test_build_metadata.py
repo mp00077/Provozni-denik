@@ -1,4 +1,7 @@
 import importlib.util
+import json
+import platform as python_platform
+from datetime import datetime
 import subprocess
 import sys
 import tempfile
@@ -83,3 +86,20 @@ class MetadataTests(unittest.TestCase):
                     self.assertEqual(result["icon"].name, name)
                     self.assertIn("Miroslav Pospíšil", result["windows_version"].read_text(encoding="utf-8"))
                     self.assertIn('"version": "v3.2.1"', result["metadata"].read_text(encoding="utf-8"))
+                    info = json.loads(result["metadata"].read_text(encoding="utf-8"))
+                    self.assertEqual(info["git_tag"], "v3.2.1")
+                    self.assertEqual(info["python_version"], python_platform.python_version())
+                    self.assertIsNotNone(datetime.fromisoformat(info["built_at"]).tzinfo)
+
+    def test_build_captures_full_git_commit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "packaging/icons").mkdir(parents=True)
+            (root / "packaging/icons/app.ico").touch()
+            commit = "abcdef0123456789" * 2 + "abcdef01"
+            with patch.object(metadata, "git_version", return_value=None), \
+                 patch.object(metadata.subprocess, "run", return_value=subprocess.CompletedProcess([], 0, commit + "\n")):
+                result = metadata.prepare_metadata(root, "win32")
+            info = json.loads(result["metadata"].read_text(encoding="utf-8"))
+            self.assertEqual(info["git_commit"], commit)
+            self.assertIsNone(info["git_tag"])

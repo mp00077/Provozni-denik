@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AboutDialog</class>
+ <widget class="QDialog" name="AboutDialog">
+  <property name="windowTitle"><string>O aplikaci</string></property>
+  <property name="minimumSize"><size><width>650</width><height>400</height></size></property>
+  <layout class="QVBoxLayout" name="layout">
+   <property name="spacing"><number>20</number></property>
+   <property name="leftMargin"><number>28</number></property><property name="topMargin"><number>28</number></property><property name="rightMargin"><number>28</number></property><property name="bottomMargin"><number>28</number></property>
+   <item><widget class="QLabel" name="titleLabel"><property name="text"><string>Provozní deník</string></property><property name="role" stdset="0"><string>title</string></property></widget></item>
+   <item><widget class="QLabel" name="subtitleLabel"><property name="text"><string>Evidence přístupů do serverovny</string></property><property name="role" stdset="0"><string>subtitle</string></property></widget></item>
+   <item><layout class="QFormLayout" name="form"><property name="verticalSpacing"><number>16</number></property><property name="horizontalSpacing"><number>24</number></property>
+    <item row="0" column="0"><widget class="QLabel" name="authorCaption"><property name="text"><string>Autor</string></property></widget></item>
+    <item row="0" column="1"><widget class="QLabel" name="authorValue"><property name="text"><string/></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse|Qt::TextSelectableByKeyboard</set></property></widget></item>
+    <item row="1" column="0"><widget class="QLabel" name="dateCaption"><property name="text"><string>Datum sestavení</string></property></widget></item>
+    <item row="1" column="1"><widget class="QLabel" name="dateValue"><property name="text"><string/></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse|Qt::TextSelectableByKeyboard</set></property></widget></item>
+    <item row="2" column="0"><widget class="QLabel" name="tagCaption"><property name="text"><string>Git tag</string></property></widget></item>
+    <item row="2" column="1"><widget class="QLabel" name="tagValue"><property name="text"><string/></property><property name="wordWrap"><bool>true</bool></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse|Qt::TextSelectableByKeyboard</set></property></widget></item>
+    <item row="3" column="0"><widget class="QLabel" name="commitCaption"><property name="text"><string>Git commit</string></property></widget></item>
+    <item row="3" column="1"><widget class="QLabel" name="commitValue"><property name="text"><string/></property><property name="wordWrap"><bool>true</bool></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse|Qt::TextSelectableByKeyboard</set></property></widget></item>
+    <item row="4" column="0"><widget class="QLabel" name="pythonCaption"><property name="text"><string>Verze Pythonu</string></property></widget></item>
+    <item row="4" column="1"><widget class="QLabel" name="pythonValue"><property name="text"><string/></property><property name="textInteractionFlags"><set>Qt::TextSelectableByMouse|Qt::TextSelectableByKeyboard</set></property></widget></item>
+   </layout></item>
+   <item><widget class="QLabel" name="noteLabel"><property name="wordWrap"><bool>true</bool></property><property name="role" stdset="0"><string>subtitle</string></property><property name="text"><string>Údaje identifikují sestavení aplikace.</string></property></widget></item>
+   <item><widget class="QDialogButtonBox" name="buttonBox"><property name="standardButtons"><set>QDialogButtonBox::Close</set></property></widget></item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

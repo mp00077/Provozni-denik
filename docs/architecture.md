@@ -4,6 +4,10 @@
 nastaví umístění dat a logování. `application.run` otevře databázi, provede migrace,
 sestaví služby a otevře hlavní okno. Při ukončení zavře databázové spojení.
 
+Databáze je v `db/denik.sqlite3` v kořeni projektu při vývoji, vedle spustitelného
+souboru u Windows/Linux balíčku, nebo vedle `.app` na macOS. Logy jsou v `logs`
+ve stejném kořenovém adresáři. Data se neukládají do uživatelského profilu.
+
 Směr závislostí: UI → služby → doména a rozhraní (`ports`). Implementace úložiště
 je v `infrastructure`; sestavení konkrétních implementací je v `application.py`.
 Doména neimportuje Qt ani SQLite. Balíčkové `__init__.py` nemají vedlejší efekty.

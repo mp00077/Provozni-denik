@@ -19,6 +19,7 @@ from provozni_denik.ui.windows.main_window import MainWindow
 from provozni_denik.ui.dialogs.access_dialog import AccessDialog
 from provozni_denik.ui.dialogs.history_dialog import HistoryDialog
 from provozni_denik.ui.dialogs.settings_dialog import SettingsDialog
+from provozni_denik.ui.dialogs.about_dialog import AboutDialog
 
 
 class Identity:
@@ -43,6 +44,9 @@ class WindowTests(unittest.TestCase):
                 service = AccessService(repository, identity)
                 window = MainWindow(service, AuditService(repository), ExportService(service),
                                     BackupService(connection, config.database_path), identity, config)
+                with patch.object(window, "about_dialog") as about:
+                    window.ui.aboutAction.trigger()
+                    about.assert_called_once()
                 dialog = AccessDialog(service, default_room="S1")
                 dialog.ui.personEdit.setText("Testovací osoba")
                 dialog.ui.purposeEdit.setText("Kontrola")
@@ -76,6 +80,26 @@ class WindowTests(unittest.TestCase):
                     widget.close()
             finally:
                 connection.close()
+
+    def test_about_shows_build_metadata_and_arbitrary_tag_as_plain_text(self):
+        info = {"author": "Miroslav Pospíšil", "built_at": "2026-10-06T10:00:00+00:00",
+                "git_tag": "release_<b>test</b>", "git_commit": "a" * 40, "python_version": "3.14.0"}
+        with patch("provozni_denik.ui.dialogs.about_dialog.load_build_info", return_value=info):
+            dialog = AboutDialog()
+        self.assertEqual(dialog.ui.authorValue.text(), "Miroslav Pospíšil")
+        self.assertIn("06.10.2026", dialog.ui.dateValue.text())
+        self.assertEqual(dialog.ui.tagValue.text(), info["git_tag"])
+        self.assertEqual(dialog.ui.commitValue.text(), info["git_commit"])
+        self.assertEqual(dialog.ui.pythonValue.text(), "3.14.0")
+        dialog.close()
+
+    def test_about_handles_development_without_git(self):
+        with patch("provozni_denik.ui.dialogs.about_dialog.load_build_info", return_value={"built_at": None}):
+            dialog = AboutDialog()
+        self.assertIn("Nesestaveno", dialog.ui.dateValue.text())
+        self.assertEqual(dialog.ui.tagValue.text(), "Není dostupný")
+        self.assertEqual(dialog.ui.commitValue.text(), "Není dostupný")
+        dialog.close()
 
     def test_background_export_and_backup(self):
         with tempfile.TemporaryDirectory() as directory:

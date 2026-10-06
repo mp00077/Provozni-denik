@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main_window.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.11.2
+## Created by: Qt User Interface Compiler version 6.10.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -11,14 +11,16 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
+    QCursor, QFont, QFontDatabase, QGradient,
+    QIcon, QImage, QKeySequence, QLinearGradient,
+    QPainter, QPalette, QPixmap, QRadialGradient,
+    QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QFrame,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit,
-    QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
-    QStatusBar, QTableView, QVBoxLayout, QWidget)
+    QMainWindow, QMenu, QMenuBar, QPushButton,
+    QSizePolicy, QSpacerItem, QStatusBar, QTableView,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -26,6 +28,9 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1240, 800)
         MainWindow.setMinimumSize(QSize(980, 680))
+        self.aboutAction = QAction(MainWindow)
+        self.aboutAction.setObjectName(u"aboutAction")
+        self.aboutAction.setMenuRole(QAction.AboutRole)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.layout = QVBoxLayout(self.centralwidget)
@@ -245,9 +250,17 @@ class Ui_MainWindow(object):
         self.layout.addLayout(self.footer)
 
         MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QMenuBar(MainWindow)
+        self.menubar.setObjectName(u"menubar")
+        self.helpMenu = QMenu(self.menubar)
+        self.helpMenu.setObjectName(u"helpMenu")
+        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
+        self.menubar.addAction(self.helpMenu.menuAction())
+        self.helpMenu.addAction(self.aboutAction)
 
         self.retranslateUi(MainWindow)
 
@@ -256,6 +269,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Provozn\u00ed den\u00edk \u2014 serverovna", None))
+        self.aboutAction.setText(QCoreApplication.translate("MainWindow", u"O aplikaci\u2026", None))
         self.eyebrow.setText(QCoreApplication.translate("MainWindow", u"SPR\u00c1VA SERVEROVNY", None))
         self.eyebrow.setProperty(u"role", QCoreApplication.translate("MainWindow", u"eyebrow", None))
         self.heading.setText(QCoreApplication.translate("MainWindow", u"Provozn\u00ed den\u00edk", None))
@@ -294,5 +308,6 @@ class Ui_MainWindow(object):
         self.exportButton.setText(QCoreApplication.translate("MainWindow", u"Export CSV", None))
         self.backupButton.setText(QCoreApplication.translate("MainWindow", u"Z\u00e1loha datab\u00e1ze", None))
         self.settingsButton.setText(QCoreApplication.translate("MainWindow", u"Nastaven\u00ed", None))
+        self.helpMenu.setTitle(QCoreApplication.translate("MainWindow", u"N\u00e1pov\u011bda", None))
     # retranslateUi
 

@@ -7,6 +7,8 @@ filtr přítomných osob, export všech záznamů do CSV a konzistentní zálohu
 Rozhraní používá jednotný světlý motiv s tyrkysovými hlavními akcemi, přehledem
 přítomných osob a návštěv a přehlednými dialogy. Náhledy s ukázkovými daty jsou
 v `docs/images/`; obnovíte je příkazem `python scripts/preview_ui.py`.
+Menu **Nápověda → O aplikaci** zobrazuje autora, datum sestavení, Git tag,
+celý Git commit a verzi Pythonu použitého při sestavení.
 
 ## Vývojové spuštění
 
@@ -53,9 +55,15 @@ spouštěn při startu aplikace ani při testech.
 
 ## Data a současné hranice
 
-- Windows: `%LOCALAPPDATA%/ProvozniDenik`.
-- macOS: `~/Library/Application Support/ProvozniDenik`.
-- Linux: `$XDG_DATA_HOME/ProvozniDenik`, případně `~/.local/share/ProvozniDenik`.
+Databáze je v `db/denik.sqlite3` v kořenovém adresáři aplikace:
+
+- Windows a Linux: adresář `db` vedle spustitelného souboru.
+- macOS: adresář `db` vedle balíčku `.app`.
+- Spuštění ze zdrojů: adresář `db` v kořeni projektu.
+
+Technické logy se ukládají do sousedního adresáře `logs`. Aplikace potřebuje
+právo zápisu v tomto umístění. Cesty nezávisejí na pracovním adresáři.
+Starší databáze v profilu uživatele se automaticky nepřesouvá ani nemaže.
 
 Databáze obsahuje UTC časy; okna je zobrazují v časovém pásmu počítače.
 Operátor je přebírán z účtu OS. Aplikace nemá samostatné přihlášení, role,

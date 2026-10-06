@@ -36,6 +36,7 @@ class MainWindow(QMainWindow):
             getattr(self.ui, button + "Button").clicked.connect(lambda checked=False, action=method: self.perform(action))
         self.ui.searchEdit.textChanged.connect(self.filter)
         self.ui.openOnlyCheck.toggled.connect(self.filter)
+        self.ui.aboutAction.triggered.connect(lambda checked=False: self.perform(self.about_dialog))
         self.ui.visitsTable.selectionModel().selectionChanged.connect(self.update_actions)
         self.refresh()
 
@@ -156,6 +157,10 @@ class MainWindow(QMainWindow):
     def settings_dialog(self):
         from provozni_denik.ui.dialogs.settings_dialog import SettingsDialog
         SettingsDialog(self.config, self.identity.current_actor(), self.settings, self).exec()
+
+    def about_dialog(self):
+        from provozni_denik.ui.dialogs.about_dialog import AboutDialog
+        AboutDialog(self).exec()
 
     def closeEvent(self, event):
         if self.tasks:

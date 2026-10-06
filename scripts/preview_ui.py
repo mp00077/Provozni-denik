@@ -25,6 +25,7 @@ def main():
     from provozni_denik.ui.dialogs.access_dialog import AccessDialog
     from provozni_denik.ui.dialogs.history_dialog import HistoryDialog
     from provozni_denik.ui.dialogs.settings_dialog import SettingsDialog
+    from provozni_denik.ui.dialogs.about_dialog import AboutDialog
 
     class Identity:
         def current_actor(self):
@@ -58,8 +59,8 @@ def main():
             window.settings = settings
             dialogs = [AccessDialog(access, default_room="Serverovna A"),
                        HistoryDialog(repository.audit(first)),
-                       SettingsDialog(config, identity.current_actor(), settings)]
-            for widget, name in zip([window, *dialogs], ["main", "arrival", "history", "settings"]):
+                       SettingsDialog(config, identity.current_actor(), settings), AboutDialog()]
+            for widget, name in zip([window, *dialogs], ["main", "arrival", "history", "settings", "about"]):
                 widget.show()
                 app.processEvents()
                 if widget is window:

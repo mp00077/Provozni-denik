@@ -2,8 +2,9 @@
 
 Build spouští uživatel ručně: `python scripts/build.py`.
 Použijte prostředí s nainstalovanými závislostmi `pip install -e ".[build]"`.
-Po zjištění volitelného Git tagu skript odstraní celé existující adresáře `build` a `dist`
-v kořeni projektu, včetně výstupů ostatních platforem. Poté generuje formuláře
+Po zjištění volitelného Git tagu skript odstraní celý existující adresář `build`
+a pouze podadresář `dist/provozní deník`. Ostatní obsah `dist` zůstává zachovaný.
+Poté generuje formuláře
 a sestaví aplikaci. Odkazy na jiné adresáře odmítne; při chybě mazání build zastaví.
 
 ## Verze, autor a ikony

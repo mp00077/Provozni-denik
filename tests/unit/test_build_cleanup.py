@@ -16,13 +16,16 @@ class CleanupTests(unittest.TestCase):
     def test_removes_only_project_outputs(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            for name in ("build", "dist", "src"):
+            for name in ("build", "dist/provozní deník", "dist/other-app", "src"):
                 nested = root / name / "nested"
                 nested.mkdir(parents=True)
                 (nested / "file.txt").write_text("test")
+            (root / "dist/notes.txt").write_text("keep")
             build.clean_outputs(root)
             self.assertFalse((root / "build").exists())
-            self.assertFalse((root / "dist").exists())
+            self.assertFalse((root / "dist/provozní deník").exists())
+            self.assertTrue((root / "dist/other-app/nested/file.txt").is_file())
+            self.assertEqual((root / "dist/notes.txt").read_text(), "keep")
             self.assertTrue((root / "src/nested/file.txt").is_file())
             build.clean_outputs(root)  # Neexistující adresáře nejsou chyba.
 
@@ -39,6 +42,17 @@ class CleanupTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             with patch.object(Path, "is_symlink", return_value=True), \
+                 patch.object(build.shutil, "rmtree") as remove:
+                with self.assertRaises(RuntimeError):
+                    build.clean_outputs(root)
+                remove.assert_not_called()
+
+    def test_rejects_linked_dist_parent_before_deleting_build(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "build").mkdir()
+            with patch.object(Path, "is_symlink", autospec=True,
+                              side_effect=lambda path: path == root / "dist"), \
                  patch.object(build.shutil, "rmtree") as remove:
                 with self.assertRaises(RuntimeError):
                     build.clean_outputs(root)

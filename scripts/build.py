@@ -8,12 +8,12 @@ from build_metadata import git_version
 
 def clean_outputs(root=ROOT):
     root = root.resolve(strict=True)
-    targets = [root / name for name in ("build", "dist")]
-    # Ověřit oba cíle před mazáním; nepokračovat přes symlink nebo junction.
-    for target in targets:
+    targets = [root / "build", root / "dist" / "provozní deník"]
+    # Ověřit i rodičovský dist; maže se jen konkrétní výstup aplikace.
+    for target in [root / "build", root / "dist", targets[1]]:
         if target.is_symlink() or (hasattr(target, "is_junction") and target.is_junction()):
             raise RuntimeError(f"Výstupní adresář nesmí být odkaz: {target}")
-        if target.resolve().parent != root:
+        if target.resolve() != target or not target.resolve().is_relative_to(root):
             raise RuntimeError(f"Výstupní adresář leží mimo projekt: {target}")
         if target.exists() and not target.is_dir():
             raise RuntimeError(f"Výstupní cesta není adresář: {target}")

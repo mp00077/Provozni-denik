@@ -22,13 +22,17 @@ class ReleaseVersion:
 
 
 def parse_tag(tag: str) -> ReleaseVersion:
-    # Windows pevná verze má čtyři 16bitová čísla; textová verze zachová celý tag.
-    match = re.fullmatch(r"v?(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?(?:[-+][0-9A-Za-z.-]+)?", tag)
-    if not match:
-        raise RuntimeError(f"Git tag {tag!r} nemá podporovaný tvar v1.2.3 nebo 1.2.3.4 (případně se suffixem).")
-    numbers = tuple(int(part or 0) for part in match.groups())
-    if any(number > 65535 for number in numbers):
-        raise RuntimeError("Části verze pro Windows musí být v rozsahu 0–65535.")
+    # Tag je libovolný text. Čísla jsou jen pomocná reprezentace pro OS resources.
+    # Suffix prerelease/build není součástí číselné verze.
+    parts = re.findall(r"[0-9]+", re.split(r"[-+]", tag, maxsplit=1)[0])[:4]
+    try:
+        numbers = tuple(int(part) for part in parts)
+    except ValueError:
+        numbers = ()
+    if not numbers or any(number > 65535 for number in numbers):
+        numbers = (0, 0, 0, 0)
+    else:
+        numbers += (0,) * (4 - len(numbers))
     return ReleaseVersion(tag, numbers)
 
 

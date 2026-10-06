@@ -21,10 +21,14 @@ class MetadataTests(unittest.TestCase):
             self.assertEqual(version.tag, tag)
             self.assertEqual(version.numbers, numeric)
 
-    def test_invalid_windows_version_is_rejected(self):
-        for tag in ("release", "v1.2", "1.2.65536", "1.2.3/extra"):
-            with self.assertRaises(RuntimeError):
-                metadata.parse_tag(tag)
+    def test_arbitrary_tags_are_preserved_without_validation(self):
+        for tag, numeric in (("release", (0, 0, 0, 0)), ("v1.2", (1, 2, 0, 0)),
+                             ("1.2.65536", (0, 0, 0, 0)), ("1.2.3/extra", (1, 2, 3, 0)),
+                             ("verze_2026_10", (2026, 10, 0, 0))):
+            version = metadata.parse_tag(tag)
+            self.assertEqual(version.tag, tag)
+            self.assertEqual(version.numbers, numeric)
+            self.assertIn(repr(tag), metadata.windows_version_text(version))
 
     def test_missing_git_tag_is_optional(self):
         with patch.object(metadata.subprocess, "run", side_effect=subprocess.CalledProcessError(128, "git")):

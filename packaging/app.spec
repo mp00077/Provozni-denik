@@ -34,8 +34,8 @@ if sys.platform == "darwin":
     bundle_options = {}
     info_plist = {"NSHumanReadableCopyright": "Autor: Miroslav Pospíšil"}
     if metadata["version"] is not None:
-        bundle_options["version"] = metadata["version"].tag
         numeric_version = ".".join(map(str, metadata["version"].numbers[:3]))
+        bundle_options["version"] = numeric_version
         info_plist.update(CFBundleShortVersionString=numeric_version, CFBundleVersion=numeric_version)
     app = BUNDLE(collection, name="provozní deník.app", bundle_identifier="cz.provoznidenik.desktop",
                  icon=str(metadata["icon"]), info_plist=info_plist, **bundle_options)

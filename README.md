@@ -8,7 +8,8 @@ Rozhraní používá jednotný světlý motiv s tyrkysovými hlavními akcemi, p
 přítomných osob a návštěv a přehlednými dialogy. Náhledy s ukázkovými daty jsou
 v `docs/images/`; obnovíte je příkazem `python scripts/preview_ui.py`.
 Menu **Nápověda → O aplikaci** zobrazuje autora, datum sestavení, Git tag,
-celý Git commit a verzi Pythonu použitého při sestavení.
+krátký Git commit (celý po najetí myší) a verzi Pythonu použitého při sestavení.
+Jméno autora je odkaz na https://mp00077.github.io.
 
 ## Vývojové spuštění
 

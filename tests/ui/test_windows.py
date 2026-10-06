@@ -86,10 +86,13 @@ class WindowTests(unittest.TestCase):
                 "git_tag": "release_<b>test</b>", "git_commit": "a" * 40, "python_version": "3.14.0"}
         with patch("provozni_denik.ui.dialogs.about_dialog.load_build_info", return_value=info):
             dialog = AboutDialog()
-        self.assertEqual(dialog.ui.authorValue.text(), "Miroslav Pospíšil")
+        self.assertIn("Miroslav Pospíšil", dialog.ui.authorValue.text())
+        self.assertIn('href="https://mp00077.github.io"', dialog.ui.authorValue.text())
+        self.assertTrue(dialog.ui.authorValue.openExternalLinks())
         self.assertIn("06.10.2026", dialog.ui.dateValue.text())
         self.assertEqual(dialog.ui.tagValue.text(), info["git_tag"])
-        self.assertEqual(dialog.ui.commitValue.text(), info["git_commit"])
+        self.assertEqual(dialog.ui.commitValue.text(), info["git_commit"][:7])
+        self.assertEqual(dialog.ui.commitValue.toolTip(), info["git_commit"])
         self.assertEqual(dialog.ui.pythonValue.text(), "3.14.0")
         dialog.close()
 
